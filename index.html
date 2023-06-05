@@ -3,22 +3,45 @@
 <head>
     <title>Device Redirect</title>
     <script type="text/javascript">
-        function redirect() {
-            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            
-            if (/android/i.test(userAgent)) {
+        function redirect(device) {
+            if (device === 'android') {
                 window.location.href = "https://www.ifood.com.br/delivery/timbo-sc/panificadora-ripao-das-capitais/9d39077d-07c3-47b5-b76f-21ccc228d329";
-            } else if (/iPad|iPhone|iPod/i.test(userAgent) && !window.MSStream) {
+            } else if (device === 'ios') {
                 window.location.href = "ifood//restaurant/9d39077d-07c3-47b5-b76f-21ccc228d329";
             } else {
-                // For other devices or unknown user agents, you can redirect to a default URL
+                // For other devices or unknown device types, you can redirect to a default URL
                 window.location.href = "https://www.ifood.com.br/";
             }
         }
+        
+        function getDevice() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            if (/android/i.test(userAgent)) {
+                return 'android';
+            } else if (/iPad|iPhone|iPod/i.test(userAgent) && !window.MSStream) {
+                return 'ios';
+            } else {
+                // For other devices or unknown user agents, you can return a default device type
+                return 'other';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            var device = getDevice();
+            
+            var button = document.createElement('button');
+            button.innerHTML = device.charAt(0).toUpperCase() + device.slice(1);
+            button.addEventListener('click', function() {
+                redirect(device);
+            });
+            
+            document.body.appendChild(button);
+        });
     </script>
 </head>
-<body onload="redirect()">
-    <h2>Redirecting...</h2>
-    <!-- You can add a loading message or any other content here -->
+<body>
+    <h1>Select your device:</h1>
+    <!-- The button will be dynamically generated based on the user's device -->
 </body>
 </html>

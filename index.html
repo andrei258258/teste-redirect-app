@@ -9,8 +9,10 @@
             } else if (device === 'ios') {
                 try{
                     window.location.href = "ifood://restaurant/9d39077d-07c3-47b5-b76f-21ccc228d329";
+                    console.log("qualquer coisa SEM erro");
                 } catch {
                     window.location.href = "https://www.ifood.com.br/delivery/timbo-sc/panificadora-ripao-das-capitais/9d39077d-07c3-47b5-b76f-21ccc228d329";
+                    console.log("qualquer coisa COM erro");
                 }
                 
             } else {

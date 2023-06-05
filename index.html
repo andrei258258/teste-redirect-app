@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Device Redirect</title>
+    <title>Lett</title>
     <script type="text/javascript">
-        function redirect(device) {
-            if (device === 'android') {
-                window.location.href = "https://www.ifood.com.br/delivery/timbo-sc/panificadora-ripao-das-capitais/9d39077d-07c3-47b5-b76f-21ccc228d329";
-            } else if (device === 'ios') {
-                window.location = "ifood://restaurant/9d39077d-07c3-47b5-b76f-21ccc228d329";      
-                console.log("passagem inicial");
-                clickedAt = +new Date;
-                setTimeout(function() {
-                    if (+new Date - clickedAt < 2000) {
-                        window.location = "https://www.ifood.com.br/delivery/timbo-sc/panificadora-ripao-das-capitais/9d39077d-07c3-47b5-b76f-21ccc228d329";
-                        console.log("Erro");
-                    }
-                }, 500);    
-                
-            } else {
-                // For other devices or unknown device types, you can redirect to a default URL
-                window.location.href = "https://www.ifood.com.br/";
-            }
+        function redirect(device, market_id) {
+            switch (market_id) {
+                case '4339':
+                    redirect_to_device(device, 
+                    'https://www.ifood.com.br/delivery/sao-paulo-sp/carrefour-hiper---pinheiros-vila-gertrudes/56aa9af8-af10-431e-bc3b-5dfaf974d636', 
+                    'ifood://restaurant/56aa9af8-af10-431e-bc3b-5dfaf974d636');
+                    break;
+                case '4419':
+                    redirect_to_device(device, 
+                    'https://www.rappi.com.br/lojas/900130443-carrefour-hiper-super-market', 
+                    'rappi://store/900130443-carrefour-hiper-super-market');
+                    break;
+                default:
+                    console.log('Unknown market_id:', market.market_id);
+                }
+
         }
         
         function getDevice() {
@@ -36,38 +34,49 @@
             }
         }
 
+        function redirect_to_device(device, web_url, ios_url){
+            if (device === 'android') {
+                window.location.href = web_url;
+            } else if (device === 'ios') {
+                window.location = ios_url;      
+                clickedAt = +new Date;
+                setTimeout(function() {
+                    if (+new Date - clickedAt < 2000) {
+                        window.location = web_url;
+                        console.log("Erro");
+                    }
+                }, 500);     
+            } else {
+                // For other devices or unknown device types, you can redirect to a default URL
+                window.location.href = web_url;
+            }
+        }
         
         // Using URLSearchParams API
         function processParametersWithSearchParams() {
             const urlParams = new URLSearchParams(window.location.search);
-            const myParam = urlParams.get('market_id');
+            const market_id = urlParams.get('market_id');
             
-            if (myParam) {
-                // Process the parameter value
-                console.log('Parameter value:', myParam);
+            if (!market_id) {
+                   window.history.go(-1);
             }
+
+            return market_id
+
         }
         
         document.addEventListener('DOMContentLoaded', function() {
-            processParametersWithSearchParams();
+            var market_id = processParametersWithSearchParams();
             var device = getDevice();
-            
-            var button = document.createElement('button');
-            button.innerHTML = device.charAt(0).toUpperCase() + device.slice(1);
-            button.addEventListener('click', function() {
-                redirect(device);
-            });
-            
-            document.body.appendChild(button);
+            redirect(device, market_id);
+
         });
 
-        
 
     </script
     </script>
 </head>
 <body>
-    <h1>Select your device:</h1>
-    <!-- The button will be dynamically generated based on the user's device -->
+    <img src="loading.gif" alt="loading">
 </body>
 </html>

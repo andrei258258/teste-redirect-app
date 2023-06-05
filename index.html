@@ -16,9 +16,8 @@
                     'rappi://store/900130443-carrefour-hiper-super-market');
                     break;
                 default:
-                    console.log('Unknown market_id:', market.market_id);
+                    console.log('Unknown market_id:', market_id);
                 }
-
         }
         
         function getDevice() {
@@ -47,7 +46,6 @@
                     }
                 }, 500);     
             } else {
-                // For other devices or unknown device types, you can redirect to a default URL
                 window.location.href = web_url;
             }
         }
@@ -56,13 +54,10 @@
         function processParametersWithSearchParams() {
             const urlParams = new URLSearchParams(window.location.search);
             const market_id = urlParams.get('market_id');
-            
             if (!market_id) {
                    window.history.go(-1);
             }
-
             return market_id
-
         }
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -72,8 +67,6 @@
 
         });
 
-
-    </script
     </script>
 </head>
 <body>

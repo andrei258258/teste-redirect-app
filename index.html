@@ -35,8 +35,21 @@
                 return 'other';
             }
         }
+
+        
+        // Using URLSearchParams API
+        function processParametersWithSearchParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const myParam = urlParams.get('market_id');
+            
+            if (myParam) {
+                // Process the parameter value
+                console.log('Parameter value:', myParam);
+            }
+        }
         
         document.addEventListener('DOMContentLoaded', function() {
+            processParametersWithSearchParams();
             var device = getDevice();
             
             var button = document.createElement('button');
@@ -47,6 +60,10 @@
             
             document.body.appendChild(button);
         });
+
+        
+
+    </script
     </script>
 </head>
 <body>

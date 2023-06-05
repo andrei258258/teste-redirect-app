@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Device Redirect</title>
+    <script type="text/javascript">
+        function redirect() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            if (/android/i.test(userAgent)) {
+                window.location.href = "https://www.ifood.com.br/delivery/timbo-sc/panificadora-ripao-das-capitais/9d39077d-07c3-47b5-b76f-21ccc228d329";
+            } else if (/iPad|iPhone|iPod/i.test(userAgent) && !window.MSStream) {
+                window.location.href = "http://ifood//restaurant/9d39077d-07c3-47b5-b76f-21ccc228d329";
+            } else {
+                // For other devices or unknown user agents, you can redirect to a default URL
+                window.location.href = "https://www.ifood.com.br/";
+            }
+        }
+    </script>
+</head>
+<body onload="redirect()">
+    <h1>Redirecting...</h1>
+    <!-- You can add a loading message or any other content here -->
+</body>
+</html>

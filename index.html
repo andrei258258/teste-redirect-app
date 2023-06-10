@@ -2,74 +2,9 @@
 <html>
 <head>
     <title>Lett</title>
-    <script type="text/javascript">
-        function redirect(device, market_id) {
-            switch (market_id) {
-                case '4339':
-                    redirect_to_device(device, 
-                    'https://www.ifood.com.br/delivery/sao-paulo-sp/carrefour-hiper---pinheiros-vila-gertrudes/56aa9af8-af10-431e-bc3b-5dfaf974d636', 
-                    'ifood://restaurant/56aa9af8-af10-431e-bc3b-5dfaf974d636');
-                    break;
-                case '4419':
-                    redirect_to_device(device, 
-                    'https://www.rappi.com.br/lojas/900130443-carrefour-hiper-super-market', 
-                    'rappi://store/900130443-carrefour-hiper-super-market');
-                    break;
-                default:
-                    console.log('Unknown market_id:', market_id);
-                }
-        }
-        
-        function getDevice() {
-            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            
-            if (/android/i.test(userAgent)) {
-                return 'android';
-            } else if (/iPad|iPhone|iPod/i.test(userAgent) && !window.MSStream) {
-                return 'ios';
-            } else {
-                // For other devices or unknown user agents, you can return a default device type
-                return 'other';
-            }
-        }
 
-        function redirect_to_device(device, web_url, ios_url){
-            if (device === 'android') {
-                window.location.href = web_url;
-            } else if (device === 'ios') {
-                window.location = ios_url;      
-                clickedAt = +new Date;
-                setTimeout(function() {
-                    if (+new Date - clickedAt < 2000) {
-                        window.location = web_url;
-                        console.log("Erro");
-                    }
-                }, 500);     
-            } else {
-                window.location.href = web_url;
-            }
-        }
-        
-        // Using URLSearchParams API
-        function processParametersWithSearchParams() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const market_id = urlParams.get('market_id');
-            if (!market_id) {
-                   window.history.go(-1);
-            }
-            return market_id
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            var market_id = processParametersWithSearchParams();
-            var device = getDevice();
-            redirect(device, market_id);
-
-        });
-
-    </script>
 </head>
 <body>
-    <img src="loading.gif" alt="loading">
+    <h1>Lett.digital</h1>
 </body>
 </html>
